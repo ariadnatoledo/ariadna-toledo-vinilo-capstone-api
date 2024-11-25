@@ -3,12 +3,12 @@
  * @returns { Promise<void> }
  */
 export function up(knex) {
-    return knex.schema.createTable('Posts', (table) => {
-      table.increments('postId').primary(); 
+    return knex.schema.createTable('Comments', (table) => {
+      table.increments('commentId').primary(); 
+      table.integer('postId').unsigned().notNullable()
+        .references('postId').inTable('Posts').onDelete('CASCADE'); 
       table.integer('userId').unsigned().notNullable()
         .references('userId').inTable('Users').onDelete('CASCADE'); 
-      table.integer('vinylId').unsigned().notNullable()
-        .references('vinylId').inTable('VinylRecords').onDelete('CASCADE'); 
       table.text('content').notNullable(); 
       table.timestamp('timestamp').defaultTo(knex.fn.now()); 
     });
@@ -19,5 +19,6 @@ export function up(knex) {
    * @returns { Promise<void> }
    */
   export function down(knex) {
-    return knex.schema.dropTable('Posts');
+    return knex.schema.dropTable('Comments'); 
   }
+  
