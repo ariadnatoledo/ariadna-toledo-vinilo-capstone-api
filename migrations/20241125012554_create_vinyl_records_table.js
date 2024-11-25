@@ -14,6 +14,7 @@ export function up(knex) {
       table.string('coverImage', 255); 
       table.text('tracklist'); 
       table.float('averageRating').defaultTo(0); 
+      table.string("previewTrack", 255);
     });
   }
   

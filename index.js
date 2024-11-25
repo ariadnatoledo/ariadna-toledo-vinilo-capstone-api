@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
 import cors from "cors";
+import vinylRoutes from "./routes/vinylRecords.js";
 dotenv.config();
 
 const knex = initKnex(configuration);
@@ -17,7 +18,8 @@ const PORT = 3306
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
-// app.use('src/assets', express.static('src/assets/avatars')); //to review this path later on
+app.use("/vinyls", vinylRoutes);
+
 
 /*
 * Home Route
@@ -79,7 +81,7 @@ app.post("/login", async (req, res) => {
   
       const isMatch = await bcrypt.compare(password, user.hashedPassword);
       if (!isMatch) {
-        console.log("Password mismatch for email:", email); // Log password mismatch
+        console.log("Password mismatch for email:", email); 
         return res.status(401).json({ message: "Invalid credentials" });
       }
   
