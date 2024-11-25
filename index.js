@@ -16,7 +16,8 @@ const PORT = 3306
 */
 app.use(cors());
 app.use(express.json());
-app.use('src/assets', express.static('src/assets/avatars')); //to review this path later on
+app.use(express.static("public"));
+// app.use('src/assets', express.static('src/assets/avatars')); //to review this path later on
 
 /*
 * Home Route
@@ -35,7 +36,6 @@ app.get("/user", verifyToken, async (req, res) => {
         const user = await knex("Users").where({ userId: req.userId }).first();
         if (!user) return res.status(404).json({ message: "User not found" });
 
-        // Exclude sensitive data like passwords
         const { hashedPassword, ...userData } = user;
         res.status(200).json(userData);
     } catch (error) {
