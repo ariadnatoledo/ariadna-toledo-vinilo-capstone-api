@@ -6,6 +6,7 @@ import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
 import cors from "cors";
 import vinylRoutes from "./routes/vinylRecords.js";
+import showsRoutes from "./routes/shows.js"
 dotenv.config();
 
 const knex = initKnex(configuration);
@@ -19,6 +20,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 app.use("/vinyls", vinylRoutes);
+app.use("/shows", showsRoutes);
 
 
 /*
