@@ -5,12 +5,14 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt"
 import cors from "cors";
+import multer from "multer";
 import vinylRoutes from "./routes/vinylRecords.js";
 import showsRoutes from "./routes/shows.js"
 import messagesRoute from "./routes/messages.js"
 import postsRouter from "./routes/posts.js";
 dotenv.config();
 
+const upload = multer({ dest: "assets/"});
 const knex = initKnex(configuration);
 const app = express()
 const PORT = 3306
@@ -25,8 +27,26 @@ app.use("/vinyls", vinylRoutes);
 app.use("/shows", showsRoutes);
 app.use("/messages", messagesRoute);
 app.use("/posts", postsRouter);
+app.use('/assets', express.static('assets'));
 
+/*
+* images
+*/
 
+app.get("./assets/:image", (req, res) => {
+
+    const imageName =req.params.imageName;
+    const readStream = createReadStream(`assets/${imageName}`);
+    readStream.pipe(res);
+});
+
+app.post("./posts/assets", upload.single("image", (req, res) => {
+    const imageName = req.file.filename;
+    const content = req.body.content;
+
+    console.log(content,imageName);
+    return res.send({ content, imageName});
+}))
 
 /*
 * Home Route
