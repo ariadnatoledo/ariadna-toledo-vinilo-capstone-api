@@ -66,7 +66,29 @@ router.post("/", upload.single("image"), async (req, res) => {
 export default router;
 
 /*
- * POST
+ * Get a post by Id
+ */
+
+router.get("/:postId", async (req, res) => {
+  const { postId } = req.params;
+
+  try {
+    const post = await knex("Posts").where({ postId }).first();
+
+    if (!post) {
+      return res.status(404).json({ message: "Post not found." });
+    }
+
+    res.status(200).json(post);
+  } catch (error) {
+    console.error("Error fetching post:", error);
+    res.status(500).json({ error: "Error fetching post." });
+  }
+});
+
+
+/*
+ * PUT / EDIT
  */
 
 router.put("/:postId", async (req, res) => {
