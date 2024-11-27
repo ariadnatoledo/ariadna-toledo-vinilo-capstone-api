@@ -8,6 +8,7 @@ import cors from "cors";
 import vinylRoutes from "./routes/vinylRecords.js";
 import showsRoutes from "./routes/shows.js"
 import messagesRoute from "./routes/messages.js"
+import postsRouter from "./routes/posts.js";
 dotenv.config();
 
 const knex = initKnex(configuration);
@@ -23,6 +24,7 @@ app.use(express.static("public"));
 app.use("/vinyls", vinylRoutes);
 app.use("/shows", showsRoutes);
 app.use("/messages", messagesRoute);
+app.use("/posts", postsRouter);
 
 
 

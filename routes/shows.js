@@ -5,7 +5,6 @@ import knexInit from "knex";
 const knex = knexInit(knexConfig); 
 const router = express.Router();
 
-// GET /shows 
 router.get("/", async (req, res) => {
   try {
     console.log("Fetching all shows...");
