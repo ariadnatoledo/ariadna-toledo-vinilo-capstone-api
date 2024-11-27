@@ -55,6 +55,7 @@ router.post("/", upload.single("image"), async (req, res) => {
       success: true,
       message: "Post created successfully.",
       postId: newPostId,
+      image: `/assets/${image}`, // Include the image path in the response
     });
   } catch (error) {
     res.status(500).json({ error: "Error creating post." });
