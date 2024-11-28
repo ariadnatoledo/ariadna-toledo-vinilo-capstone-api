@@ -1,7 +1,6 @@
 import initKnex from "knex";
 import configuration from "../knexfile.js";
 const knex = initKnex(configuration);
-//maybe i need a validator for set error states
 
 // Get all comments for a specific post
 export const getCommentsByPost = async (req, res) => {
@@ -29,15 +28,25 @@ export const getCommentsByPost = async (req, res) => {
 export const addComment = async (req, res) => {
   const { postId } = req.params;
   const { userId, content } = req.body;
+
+  console.log('Received POST request to /posts/:postId/comments');
+  console.log('Request params:', req.params);
+  console.log('Request body:', req.body);
+
   if (!userId || !content) {
+    console.log('Validation failed: Missing userId or content');
     return res.status(400).json({ error: 'User ID and content are required' });
   }
   try {
     const [newComment] = await knex('Comments')
       .insert({ postId, userId, content })
-      .returning('*');
+      .select('*');
+      console.log('New comment added:', newComment);
+
+
     res.status(201).json(newComment);
   } catch (error) {
+        console.error('Error inserting comment into database:', error);
     res.status(500).json({ error: 'Failed to add comment' });
   }
 };
