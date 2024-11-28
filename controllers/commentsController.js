@@ -50,3 +50,20 @@ export const addComment = async (req, res) => {
     res.status(500).json({ error: 'Failed to add comment' });
   }
 };
+
+export const deleteComment = async (req, res) => {
+  const { commentId } = req.params;
+
+  try {
+    const deletedRows = await knex('Comments').where('commentId', commentId).del();
+
+    if (deletedRows) {
+      res.status(200).json({ message: 'Comment deleted successfully' });
+    } else {
+      res.status(404).json({ error: 'Comment not found' });
+    }
+  } catch (error) {
+    console.error('Error deleting comment:', error);
+    res.status(500).json({ error: 'Failed to delete comment' });
+  }
+};
