@@ -1,3 +1,5 @@
+import { createServer } from "http";
+import { Server } from "socket.io";
 import initKnex from "knex";
 import configuration from "./knexfile.js";
 import express from 'express';
@@ -17,7 +19,15 @@ dotenv.config();
 const upload = multer({ dest: "assets/"});
 const knex = initKnex(configuration);
 const app = express()
-const PORT = 3306
+const server = createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:5173",
+    methods: ["GET", "POST"],
+  }
+});
+
+const PORT = 3306;
 
 /*
 * Middleware
@@ -28,10 +38,33 @@ app.use(express.static("public"));
 app.use("/users", userRoutes);
 app.use("/vinyls", vinylRoutes);
 app.use("/shows", showsRoutes);
-app.use("/messages", messagesRoute);
+// app.use("/messages", messagesRoute);
+app.use("/messages", messagesRoute(io));
 app.use("/posts", postsRouter);
 app.use("/posts/", commentsRoute);
 app.use('/assets', express.static('assets'));
+
+
+/*
+* Socket.IO setup
+*/
+
+io.on("connection", (socket) => {
+  console.log(`User connected: ${socket.id}`);
+
+  // Listen for message events
+  socket.on("send_message", (message) => {
+    console.log("New message received:", message);
+
+    // Broadcast the message to all connected clients
+    io.emit("receive_message", message);
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`User disconnected: ${socket.id}`);
+  });
+});
+
 
 /*
 * images
@@ -152,6 +185,10 @@ app.post("/login", async (req, res) => {
 }
 
 
-app.listen(PORT, () => {
-    console.log(`Port listening to ${PORT}`)
-})
+// app.listen(PORT, () => {
+//     console.log(`Port listening to ${PORT}`)
+// })
+
+server.listen(PORT, () => {
+  console.log(`Server listening on http://localhost:${PORT}`);
+});
