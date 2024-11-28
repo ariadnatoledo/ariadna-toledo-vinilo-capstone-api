@@ -7,8 +7,9 @@ import bcrypt from "bcrypt"
 import cors from "cors";
 import multer from "multer";
 import vinylRoutes from "./routes/vinylRecords.js";
-import showsRoutes from "./routes/shows.js"
-import messagesRoute from "./routes/messages.js"
+import showsRoutes from "./routes/shows.js";
+import messagesRoute from "./routes/messages.js";
+import userRoutes from "./routes/users.js";
 import postsRouter from "./routes/posts.js";
 dotenv.config();
 
@@ -23,6 +24,7 @@ const PORT = 3306
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
+app.use("/users", userRoutes);
 app.use("/vinyls", vinylRoutes);
 app.use("/shows", showsRoutes);
 app.use("/messages", messagesRoute);
