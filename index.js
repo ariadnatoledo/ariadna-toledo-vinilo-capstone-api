@@ -11,6 +11,7 @@ import showsRoutes from "./routes/shows.js";
 import messagesRoute from "./routes/messages.js";
 import userRoutes from "./routes/users.js";
 import postsRouter from "./routes/posts.js";
+import commentsRoute from "./routes/comments.js";
 dotenv.config();
 
 const upload = multer({ dest: "assets/"});
@@ -29,6 +30,7 @@ app.use("/vinyls", vinylRoutes);
 app.use("/shows", showsRoutes);
 app.use("/messages", messagesRoute);
 app.use("/posts", postsRouter);
+app.use("/posts/", commentsRoute);
 app.use('/assets', express.static('assets'));
 
 /*
