@@ -8,10 +8,19 @@ export const getCommentsByPost = async (req, res) => {
   const { postId } = req.params;
   try {
     const comments = await knex('Comments')
-      .where({ postId })
-      .orderBy('timestamp', 'asc');
+      .join('Users', 'Comments.userId', 'Users.userId') 
+      .select(
+        'Comments.commentId',
+        'Comments.content',
+        'Comments.timestamp',
+        'Users.username',
+        'Users.avatar' 
+      )
+      .where('Comments.postId', postId)
+      .orderBy('Comments.timestamp', 'asc');
     res.json(comments);
   } catch (error) {
+    console.error('Error fetching comments:', error);
     res.status(500).json({ error: 'Failed to fetch comments' });
   }
 };
