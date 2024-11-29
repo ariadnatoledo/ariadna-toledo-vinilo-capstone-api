@@ -6,7 +6,7 @@ export async function seed(knex) {
         date: "2024-12-10",
         location: "Los Angeles, CA",
         description: "The largest vinyl event on the West Coast.",
-        imageFlyerUrl: "/src/assets/flyers/vinyl-fest-los-angeles.png",
+        imageFlyerUrl: "/assets/flyers/vinyl-fest-los-angeles.png",
         organizer: "Vinyl Enthusiasts Group",
       },
       {
@@ -14,7 +14,7 @@ export async function seed(knex) {
         date: "2024-11-25",
         location: "New York, NY",
         description: "A curated market for rare and collectible vinyl records.",
-        imageFlyerUrl: "/src/assets/flyers/rare-finds-market.png",
+        imageFlyerUrl: "/assets/flyers/rare-finds-market.png",
         organizer: "NYC Vinyl Collective",
       },
     ]);

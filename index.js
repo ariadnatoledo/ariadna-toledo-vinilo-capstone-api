@@ -14,6 +14,7 @@ import messagesRoute from "./routes/messages.js";
 import userRoutes from "./routes/users.js";
 import postsRouter from "./routes/posts.js";
 import commentsRoute from "./routes/comments.js";
+import friendsRoutes from "./routes/friends.js";
 dotenv.config();
 
 const upload = multer({ dest: "assets/"});
@@ -38,10 +39,10 @@ app.use(express.static("public"));
 app.use("/users", userRoutes);
 app.use("/vinyls", vinylRoutes);
 app.use("/shows", showsRoutes);
-// app.use("/messages", messagesRoute);
 app.use("/messages", messagesRoute(io));
 app.use("/posts", postsRouter);
 app.use("/posts/", commentsRoute);
+app.use("/friends", friendsRoutes);
 app.use('/assets', express.static('assets'));
 
 
@@ -183,11 +184,6 @@ app.post("/login", async (req, res) => {
         next();
     });
 }
-
-
-// app.listen(PORT, () => {
-//     console.log(`Port listening to ${PORT}`)
-// })
 
 server.listen(PORT, () => {
   console.log(`Server listening on http://localhost:${PORT}`);
