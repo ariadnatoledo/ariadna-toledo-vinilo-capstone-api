@@ -15,6 +15,7 @@ import userRoutes from "./routes/users.js";
 import postsRouter from "./routes/posts.js";
 import commentsRoute from "./routes/comments.js";
 import friendsRoutes from "./routes/friends.js";
+import homepageVinylsRouter from "./routes/homepageVinylsRouter.js";
 dotenv.config();
 
 const upload = multer({ dest: "assets/"});
@@ -36,6 +37,7 @@ const PORT = 3306;
 app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
+app.use("/homepage-vinyls", homepageVinylsRouter);
 app.use("/users", userRoutes);
 app.use("/vinyls", vinylRoutes);
 app.use("/shows", showsRoutes);
