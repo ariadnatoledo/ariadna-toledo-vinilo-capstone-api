@@ -5,7 +5,6 @@ const knex = knexInit(knexConfig);
 
 export const getHomepageVinyls = async (req, res) => {
   try {
-    // Fetch vinyls and order randomly
     const vinyls = await knex("HomepageVinyls").select("*").orderByRaw("RAND()");
     res.status(200).json(vinyls);
   } catch (error) {

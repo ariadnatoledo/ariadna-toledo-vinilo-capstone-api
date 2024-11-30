@@ -6,7 +6,6 @@ import knexInit from "knex";
 const knex = knexInit(knexConfig); 
 const router = express.Router();
 
-// GET /vinyls/random - Fetch random vinyls
 router.get("/random", async (req, res) => {
   try {
     console.log("Fetching random vinyls...");
