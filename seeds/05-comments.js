@@ -2,14 +2,14 @@ export async function seed(knex) {
     await knex("Comments").del(); 
     await knex("Comments").insert([
       {
-        postId: 1, // Refers to the post from userId 1 (sim)
-        userId: 2, // User 2 is commenting (ahri)
+        postId: 1, 
+        userId: 2, 
         content: "Absolutely agree! The production quality is outstanding.",
         timestamp: knex.fn.now(),
       },
       {
-        postId: 2, // Refers to the post from userId 2 (ahri)
-        userId: 1, // User 1 is commenting (sim)
+        postId: 2, 
+        userId: 1, 
         content: "Such a deep and atmospheric record. A true gem!",
         timestamp: knex.fn.now(),
       },

@@ -27,7 +27,6 @@ export const getMessagesByUsername = async (req, res) => {
   }
 };
 
-// Post a new message
 export const postMessage = async (req, res, io) => {
   console.log("Incoming request body:", req.body);
 

@@ -47,7 +47,7 @@ export async function seed(knex) {
       previewTrack: "/assets/previews/floating-points-preview.mp3",
     },
     {
-      title: "The SpongeBob SquarePants Movie – Music from the Movie and More…",
+      title: "The SpongeBob SquarePants Movie…",
       artist: "Various",
       label: "Sire, Rhino Records (2)",
       tradeStatus: true,
@@ -73,7 +73,7 @@ export async function seed(knex) {
       previewTrack: "/assets/previews/roman-flugel-preview.mp3",
     },
     {
-      title: "One Assassination Under God (Chapter 1)",
+      title: "One Assassination Under God",
       artist: "Marilyn Manson",
       label: "Nuclear Blast Records",
       tradeStatus: true,
@@ -291,7 +291,7 @@ export async function seed(knex) {
       previewTrack: "/assets/previews/a-pool-a-portal-preview.mp3",
     },
     {
-      title: "For Those Of You Who Have Never (And Also Those Who Have)",
+      title: "For Those Of You Who Have Never",
       artist: "Huerco S.",
       label: "Proibito",
       tradeStatus: true,
@@ -309,6 +309,21 @@ export async function seed(knex) {
       ]),
       averageRating: 4.8,
       previewTrack: "/assets/previews/huerco-s-preview.mp3",
+    },
+    {
+      title: "Sacred Drums",
+      artist: "TSVI",
+      label: "Nervous Horizon",
+      tradeStatus: true,
+      coverImage: "/assets/vinyls/tsvi-sacred-drums.jpg",
+      tracklist: JSON.stringify([
+        "A1 - The Healer",
+        "A2 - Darabukka",
+        "B1 - Parade",
+        "B2 - Assam's Children",
+      ]),
+      averageRating: 4.9,
+      previewTrack: "/assets/previews/deepchord-preview.mp3",
     },
   ]);
 }

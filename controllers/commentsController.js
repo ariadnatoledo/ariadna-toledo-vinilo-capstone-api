@@ -2,7 +2,6 @@ import initKnex from "knex";
 import configuration from "../knexfile.js";
 const knex = initKnex(configuration);
 
-// Get all comments for a specific post
 export const getCommentsByPost = async (req, res) => {
   const { postId } = req.params;
   try {
@@ -24,7 +23,6 @@ export const getCommentsByPost = async (req, res) => {
   }
 };
 
-// Add a new comment to a specific post
 export const addComment = async (req, res) => {
   const { postId } = req.params;
   const { userId, content } = req.body;
