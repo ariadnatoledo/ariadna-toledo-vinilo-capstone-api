@@ -63,6 +63,22 @@ io.on("connection", (socket) => {
     io.emit("receive_message", message);
   });
 
+   // Listen for typing events
+   socket.on("typing", ({ senderId, receiverId }) => {
+    console.log(`User ${senderId} is typing to ${receiverId}`);
+    
+    // Notify the receiver that the sender is typing
+    io.emit("typing", { senderId, receiverId });
+  });
+
+  // Listen for stop typing events
+  socket.on("stopTyping", ({ senderId, receiverId }) => {
+    console.log(`User ${senderId} stopped typing to ${receiverId}`);
+
+    // Notify the receiver that the sender stopped typing
+    io.emit("stopTyping", { senderId, receiverId });
+  });
+  
   socket.on("disconnect", () => {
     console.log(`User disconnected: ${socket.id}`);
   });
