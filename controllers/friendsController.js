@@ -2,29 +2,22 @@ import initKnex from "knex";
 import configuration from "../knexfile.js";
 const knex = initKnex(configuration);
 
-
 export const getFriends = async (req, res) => {
-  const { userId } = req.params;
-
-  try {
-    const followersCount = await knex("Friends")
-      .where("friendId", userId)
-      .count("userId as count");
-
-    const followingCount = await knex("Friends")
-      .where("userId", userId)
-      .count("friendId as count");
-
-    res.status(200).json({
-      followers: followersCount[0].count,
-      following: followingCount[0].count,
-    });
-  } catch (error) {
-    console.error("Error fetching followers and following:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
+    const { userId } = req.params;
+  
+    try {
+      const friends = await knex("Friends")
+        .join("Users", "Friends.friendId", "=", "Users.userId")
+        .select("Users.userId", "Users.username", "Users.avatar")
+        .where("Friends.userId", userId);
+  
+      res.status(200).json(friends);
+    } catch (error) {
+      console.error("Error fetching friends:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  };
+  
   export const addFriend = async (req, res) => {
     const { userId, friendId } = req.body;
   

@@ -16,6 +16,7 @@ import postsRouter from "./routes/posts.js";
 import commentsRoute from "./routes/comments.js";
 import friendsRoutes from "./routes/friends.js";
 import homepageVinylsRouter from "./routes/homepageVinylsRouter.js";
+import followersRoutes from "./routes/userFollowers.js";
 dotenv.config();
 
 const upload = multer({ dest: "assets/"});
@@ -45,6 +46,7 @@ app.use("/messages", messagesRoute(io));
 app.use("/posts", postsRouter);
 app.use("/posts/", commentsRoute);
 app.use("/friends", friendsRoutes);
+app.use(followersRoutes);
 app.use('/assets', express.static('assets'));
 
 
