@@ -55,30 +55,24 @@ app.use('/assets', express.static('assets'));
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
 
-  // Listen for message events
   socket.on("send_message", (message) => {
     console.log("New message received:", message);
 
-    // Broadcast the message to all connected clients
     io.emit("receive_message", message);
   });
 
-   // Listen for typing events
    socket.on("typing", ({ senderId, receiverId }) => {
     console.log(`User ${senderId} is typing to ${receiverId}`);
     
-    // Notify the receiver that the sender is typing
     io.emit("typing", { senderId, receiverId });
   });
 
-  // Listen for stop typing events
   socket.on("stopTyping", ({ senderId, receiverId }) => {
     console.log(`User ${senderId} stopped typing to ${receiverId}`);
 
-    // Notify the receiver that the sender stopped typing
     io.emit("stopTyping", { senderId, receiverId });
   });
-  
+
   socket.on("disconnect", () => {
     console.log(`User disconnected: ${socket.id}`);
   });
